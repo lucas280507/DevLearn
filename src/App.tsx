@@ -157,6 +157,106 @@ function App() {
             </aside>
           </div>
         </section>
+
+        {/* ===== TRILHAS DE CARREIRA (listagem secundária) ===== */}
+        <section id="trilhas" aria-labelledby="titulo-trilhas" className="scroll-mt-20 border-b border-slate-200">
+          <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:px-8 lg:py-16">
+            <div className="flex flex-wrap items-end justify-between gap-3 border-b border-slate-200 pb-4">
+              <div>
+                <h2 id="titulo-trilhas" className="font-display text-2xl font-bold text-slate-900">
+                  Trilhas de Carreira Acelerada
+                </h2>
+                <p className="mt-1 text-sm text-slate-500">3 formações completas, do básico ao avançado.</p>
+              </div>
+              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-600">
+                Formações Guiadas
+              </span>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              {/* Trilha 01 */}
+              <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <div className="flex items-start justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wide text-blue-600">Trilha acelerada</span>
+                  <span className="font-display text-2xl font-bold leading-none text-slate-200" aria-hidden="true">
+                    01
+                  </span>
+                </div>
+                <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-slate-900">
+                  Trilha Engenheiro Front-End Moderno
+                </h3>
+                <p className="mt-2 flex-1 text-sm text-slate-500">
+                  Formação completa com HTML Semântico, CSS/Tailwind, React, TypeScript e consumo de APIs.
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-slate-600">
+                  <li>📚 5 cursos</li>
+                  <li>⏱️ 160h</li>
+                  <li>⭐ Certificado</li>
+                </ul>
+                <a
+                  href="#catalogo"
+                  className="mt-5 rounded-lg border border-slate-300 bg-slate-100 py-2 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                >
+                  Explorar Trilha →
+                </a>
+              </article>
+
+              {/* Trilha 02 */}
+              <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <div className="flex items-start justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wide text-blue-600">Trilha acelerada</span>
+                  <span className="font-display text-2xl font-bold leading-none text-slate-200" aria-hidden="true">
+                    02
+                  </span>
+                </div>
+                <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-slate-900">
+                  Trilha Arquiteto Full Stack JavaScript
+                </h3>
+                <p className="mt-2 flex-1 text-sm text-slate-500">
+                  Domine o ecossistema Node.js, bancos de dados, microsserviços e integração contínua.
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-slate-600">
+                  <li>📚 6 cursos</li>
+                  <li>⏱️ 210h</li>
+                  <li>⭐ Certificado</li>
+                </ul>
+                <a
+                  href="#catalogo"
+                  className="mt-5 rounded-lg border border-slate-300 bg-slate-100 py-2 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                >
+                  Explorar Trilha →
+                </a>
+              </article>
+
+              {/* Trilha 03 */}
+              <article className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <div className="flex items-start justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wide text-blue-600">Trilha acelerada</span>
+                  <span className="font-display text-2xl font-bold leading-none text-slate-200" aria-hidden="true">
+                    03
+                  </span>
+                </div>
+                <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-slate-900">
+                  Trilha UI/UX &amp; Design Systems
+                </h3>
+                <p className="mt-2 flex-1 text-sm text-slate-500">
+                  Aprenda a construir interfaces acessíveis, consistentes e protótipos de alta usabilidade.
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-slate-600">
+                  <li>📚 4 cursos</li>
+                  <li>⏱️ 120h</li>
+                  <li>⭐ Certificado</li>
+                </ul>
+                <a
+                  href="#catalogo"
+                  className="mt-5 rounded-lg border border-slate-300 bg-slate-100 py-2 text-center text-sm font-semibold text-slate-900 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                >
+                  Explorar Trilha →
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
