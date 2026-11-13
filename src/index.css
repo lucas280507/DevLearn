@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/*
+  Tema escuro: as classes com prefixo dark: (ex.: dark:bg-slate-950) usam a
+  preferência do sistema do usuário (prefers-color-scheme). Se o Windows ou o
+  celular estiver no modo escuro, a página fica escura automaticamente.
+*/
+
 /* Fontes carregadas pelo Google Fonts no index.html */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
