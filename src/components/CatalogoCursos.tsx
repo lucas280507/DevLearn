@@ -8,6 +8,8 @@ type CatalogoCursosProps = {
   onSelecionarArea: (area: Area | 'Todos') => void
   favoritos: number[]
   onFavoritar: (id: number) => void
+  carregando: boolean
+  erro: string | null
 }
 
 function CatalogoCursos({
@@ -17,6 +19,8 @@ function CatalogoCursos({
   onSelecionarArea,
   favoritos,
   onFavoritar,
+  carregando,
+  erro,
 }: CatalogoCursosProps) {
   // Filtra os cursos de acordo com a área selecionada no estado
   const cursosFiltrados =
@@ -53,58 +57,91 @@ function CatalogoCursos({
           </div>
         </div>
 
-        {/* Filtros por categoria: rolagem horizontal no mobile, quebra de linha a partir do tablet */}
-        <div
-          role="group"
-          aria-label="Filtrar cursos por categoria"
-          className="-mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
-        >
-          <button
-            type="button"
-            onClick={() => onSelecionarArea('Todos')}
-            aria-pressed={areaSelecionada === 'Todos'}
-            className={
-              areaSelecionada === 'Todos'
-                ? 'shrink-0 whitespace-nowrap rounded-full bg-slate-900 px-4 py-1.5 text-sm font-semibold text-white dark:bg-blue-600'
-                : 'shrink-0 whitespace-nowrap rounded-full border border-slate-300 bg-white px-4 py-1.5 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-500 dark:hover:text-white'
-            }
+        {/* Estado 1: Carregando dados do JSON externo */}
+        {carregando && (
+          <div
+            role="status"
+            className="mt-8 rounded-xl border border-slate-200 bg-white p-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900"
           >
-            Todos os Cursos ({cursos.length})
-          </button>
+            <p className="font-display text-lg font-semibold text-slate-900 dark:text-white">
+              ⏳ Carregando catálogo de cursos...
+            </p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Buscando os dados externos da plataforma.
+            </p>
+          </div>
+        )}
 
-          {areas.map((area) => {
-            const quantidade = cursos.filter((curso) => curso.area === area).length
-            const ativo = areaSelecionada === area
+        {/* Estado 2: Erro ao carregar o JSON externo */}
+        {!carregando && erro && (
+          <div
+            role="alert"
+            className="mt-8 rounded-xl border border-red-300 bg-red-50 p-8 text-center shadow-sm dark:border-red-800 dark:bg-red-950/50"
+          >
+            <p className="font-display text-lg font-bold text-red-700 dark:text-red-300">
+              ⚠️ Ops! Ocorreu um problema
+            </p>
+            <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{erro}</p>
+          </div>
+        )}
 
-            return (
+        {/* Estado 3: Dados carregados com sucesso */}
+        {!carregando && !erro && (
+          <>
+            {/* Filtros por categoria: rolagem horizontal no mobile, quebra de linha a partir do tablet */}
+            <div
+              role="group"
+              aria-label="Filtrar cursos por categoria"
+              className="-mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
+            >
               <button
-                key={area}
                 type="button"
-                onClick={() => onSelecionarArea(area)}
-                aria-pressed={ativo}
+                onClick={() => onSelecionarArea('Todos')}
+                aria-pressed={areaSelecionada === 'Todos'}
                 className={
-                  ativo
+                  areaSelecionada === 'Todos'
                     ? 'shrink-0 whitespace-nowrap rounded-full bg-slate-900 px-4 py-1.5 text-sm font-semibold text-white dark:bg-blue-600'
                     : 'shrink-0 whitespace-nowrap rounded-full border border-slate-300 bg-white px-4 py-1.5 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-500 dark:hover:text-white'
                 }
               >
-                {area} <span className="hidden lg:inline">({quantidade})</span>
+                Todos os Cursos ({cursos.length})
               </button>
-            )
-          })}
-        </div>
 
-        {/* Grade de cursos: 1 coluna (mobile) → 2 (tablet) → 4 (desktop) */}
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {cursosFiltrados.map((curso) => (
-            <CardCurso
-              key={curso.id}
-              curso={curso}
-              isFavorito={favoritos.includes(curso.id)}
-              onFavoritar={onFavoritar}
-            />
-          ))}
-        </div>
+              {areas.map((area) => {
+                const quantidade = cursos.filter((curso) => curso.area === area).length
+                const ativo = areaSelecionada === area
+
+                return (
+                  <button
+                    key={area}
+                    type="button"
+                    onClick={() => onSelecionarArea(area)}
+                    aria-pressed={ativo}
+                    className={
+                      ativo
+                        ? 'shrink-0 whitespace-nowrap rounded-full bg-slate-900 px-4 py-1.5 text-sm font-semibold text-white dark:bg-blue-600'
+                        : 'shrink-0 whitespace-nowrap rounded-full border border-slate-300 bg-white px-4 py-1.5 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-500 dark:hover:text-white'
+                    }
+                  >
+                    {area} <span className="hidden lg:inline">({quantidade})</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Grade de cursos: 1 coluna (mobile) → 2 (tablet) → 4 (desktop) */}
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {cursosFiltrados.map((curso) => (
+                <CardCurso
+                  key={curso.id}
+                  curso={curso}
+                  isFavorito={favoritos.includes(curso.id)}
+                  onFavoritar={onFavoritar}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   )
